@@ -8,11 +8,11 @@ import Typography from '@mui/material/Typography'
 const LandingPage = () => {
   return (
     <Grid container direction="column" rowSpacing={3} justifyContent="center" alignItems="center" style={{ minHeight: '80vh' }}>
-      <Grid item xs={12}><Typography variant="h2" sx={{ fontWeight: 'bold', color: 'primary.dark' }}>graphie</Typography></Grid>
+      <Grid item xs={12}><Typography variant="h2" sx={{ fontWeight: 'bold', color: 'primary.dark' }}>trackie</Typography></Grid>
       <Grid item xs={12} spacing={2} direction="row">
         <Stack spacing={2} direction="row">
           <Button variant="contained">Log in</Button>
-          <Button variant="outlined">Continue as guest</Button>
+          <Button variant="outlined">Sign up</Button>
         </Stack>
       </Grid>
     </Grid>
