@@ -42,11 +42,30 @@ export const AuthProvider = ({children}) => {
     localStorage.removeItem("username")
   }
 
+  let signUp = async (userInfo) => {
+    let response = await fetch("/user/create/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(userInfo)
+    })
+
+    if (response.status === 200) {
+      console.log("successfully registered");
+      logIn(userInfo.username, userInfo.password)
+    }
+    else {
+      console.log("fail");
+    }
+  }
+
   let authContextValue = {
     user: user,
     authTokens: authTokens,
     logIn: logIn,
-    logOut: logOut
+    logOut: logOut,
+    signUp: signUp
   }
 
   return(
