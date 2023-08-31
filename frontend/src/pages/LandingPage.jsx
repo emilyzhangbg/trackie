@@ -10,7 +10,7 @@ const LandingPage = () => {
   document.body.style.backgroundColor = 'white';
 
   return (
-    <Grid container direction="column" rowSpacing={3} justifyContent="center" alignItems="center" style={{ minHeight: '80vh' }}>
+    <Grid container style={{ minHeight: '80vh' }}>
       <Grid item xs={12}><Typography variant="h2" sx={{ fontWeight: 'bold', color: 'primary.dark' }}>trackie</Typography></Grid>
       <Grid item xs={12} spacing={2} direction="row">
         <Stack spacing={2} direction="row">

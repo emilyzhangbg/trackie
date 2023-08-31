@@ -9,6 +9,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import IconButton from "@mui/material/IconButton";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import CardMedia from '@mui/material/CardMedia';
+import CreatePost from '../components/CreatePost';
 
 const HomePage = () => {
   document.body.style.backgroundColor = 'white';
@@ -42,7 +43,7 @@ const HomePage = () => {
   console.log(posts)
 
   return (
-    <div>
+    <>
       <Button sx={{m: 2}} style={{float: "right"}} variant="contained" onClick={() => {logOut()}}>Log out</Button>
       <Grid container sx={{pb: 5}} direction="column" rowSpacing={3} justifyContent="center" alignItems="center" >
         <Grid item xs={12}>
@@ -50,7 +51,7 @@ const HomePage = () => {
         </Grid>
 
         <Grid item xs={12}>
-        <IconButton sx={{m:1}} size="large"><AddCircleOutlineIcon sx={{ fontSize: "40px" }}/></IconButton>
+        <CreatePost onMakePost={getPosts}/>
         </Grid>
 
         {posts.map((post) => (
@@ -58,27 +59,30 @@ const HomePage = () => {
           <Paper sx={{minWidth: 300, width: '40%', p:2}} elevation={3}>
             <Grid container>
               <Grid item xs={12}>
-              <CardMedia
-                sx={{ height: 200, mb: 1 }}
-                component="img"
-                image={post.image}
-                alt={post.caption}
-              />
+                {post.image? <CardMedia
+                  sx={{ height: 200, mb: 1 }}
+                  component="img"
+                  image={post.image}
+                  alt={post.caption}
+                /> : null}
               </Grid>
               <Grid item xs={10} style={{ alignItems: 'center'}} key={String(post.id) + "caption"}>
-              <Typography>{post.caption}</Typography>
+                <Typography variant="body1">{post.caption}</Typography>
               </Grid>
               <Grid item xs={2} style={{textAlign: 'right', display: 'flex', alignItems: 'center'}} key={String(post.id) + "heart"}>
               <IconButton><FavoriteBorderIcon/></IconButton>
-              <Typography>{post.likes}</Typography>
+                <Typography>{post.likes}</Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <Typography variant="caption">{post.created_at.split('T')[0]}</Typography>
               </Grid>
             </Grid>
           </Paper>
         </Grid>))}
       
       </Grid>
-      <BottomNavBar/>
-    </div>
+      <BottomNavBar sx={{ position: 'fixed', bottom: 0 }} />
+    </>
   )
 }
 
