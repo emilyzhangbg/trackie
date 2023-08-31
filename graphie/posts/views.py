@@ -17,7 +17,7 @@ def compare_date(post):
 
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
-def note(request):
+def posts(request):
   if (request.method == "GET"):
     user = request.user
     posts = Post.objects.filter(user=user)
@@ -40,4 +40,9 @@ def note(request):
 
   return Response(response_data)
   
-  
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def post(request, id):
+  post = Post.objects.get(id=id)
+  post.delete()
+  return Response('Note was deleted!')  
