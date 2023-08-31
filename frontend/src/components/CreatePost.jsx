@@ -22,7 +22,7 @@ const style = {
   p: 4,
 };
 
-export default function CreatePost({onMakePost}) {
+export default function CreatePost({getPosts}) {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -49,7 +49,7 @@ export default function CreatePost({onMakePost}) {
     setImageObject(null)
   }
 
-  const post = async () => {
+  const createPost = async () => {
     if (caption || imageObject) {
       let formData = new FormData();
       formData.append("caption", caption)
@@ -69,7 +69,7 @@ export default function CreatePost({onMakePost}) {
       })
 
       if (response.status === 200) {
-        onMakePost()
+        getPosts()
       } else {
         alert("Failed to post")
       }
@@ -106,7 +106,7 @@ export default function CreatePost({onMakePost}) {
               }}    />
               </Grid>
               <Grid item xs={12}>
-                <TextField sx={{ width: '100%'}} id="post-hashtags" label="#hashtags" variant="standard" onChange={(e) => {
+                <TextField sx={{ width: '100%'}} id="post-hashtags" label="#hashtags (separated by /)" variant="standard" onChange={(e) => {
                 setHashtags(e.target.value)
               }}    />
               </Grid>
@@ -121,7 +121,7 @@ export default function CreatePost({onMakePost}) {
               
               {imageUrl?(<Grid item xs={12}><img src={imageUrl} alt="Uploaded Image" height="300px" /></Grid>) : null}
               <Grid item xs={12}>
-                <Button id="post-post" variant="contained" component="label" onClick={post}>Post</Button>
+                <Button id="post-post" variant="contained" component="label" onClick={createPost}>Post</Button>
               </Grid>
             </Grid>
           </Box>

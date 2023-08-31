@@ -15,6 +15,8 @@ const BottomNavBar = () => {
       onChange={(event, newValue) => {
         setValue(newValue);
       }}
+
+      sx={{ position: 'fixed', bottom: 0, width: '100%' }}
     >
       <BottomNavigationAction label="Home" icon={<HomeIcon />} />
       <BottomNavigationAction label="Posts" icon={<AddCircleOutlineIcon />} />
