@@ -102,8 +102,9 @@ const HomePage = () => {
             </Grid>
           </Paper>
         ))}
-      
       </Grid>
+      
+
       <BottomNavBar />
     </>
   )
