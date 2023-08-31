@@ -5,14 +5,14 @@ import AuthContext from '../context/AuthContext';
 const PrivateRoutes = ({otherDest}) => {
   let { user } = useContext(AuthContext)
 
-  if (otherDest === "/login/" || otherDest === "/signup/") {
+  if (otherDest === "/login/") {
     return (
       user? <Outlet /> : <Navigate to="/login/" />
     )
   }
-  else if (otherDest === "/home/") {
+  else {
     return (
-      (!user)? <Outlet /> : <Navigate to="/home/" />
+      (!user)? <Outlet /> : <Navigate to="/posts/" />
     )
   }
 }
