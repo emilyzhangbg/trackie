@@ -5,14 +5,8 @@ const AuthContext = createContext();
 export default AuthContext;
 
 export const AuthProvider = ({children}) => {
-  let [authTokens, setAuthTokens] = useState(localStorage.getItem("authToken")? JSON.parse(localStorage.getItem("authToken")): null)
+  let [authTokens, setAuthTokens] = useState(localStorage.getItem("authTokens")? JSON.parse(localStorage.getItem("authTokens")): null)
   let [user, setUser] = useState(localStorage.getItem("username"))
-  let [firstRender, setFirstRender] = useState(true)
-
-  useEffect(() => {
-    console.log("first render false");
-    setFirstRender(false)
-  }, [firstRender])
 
   let logIn = async (username, password) => {   
     let response = await fetch("/api/token/", {
@@ -43,7 +37,7 @@ export const AuthProvider = ({children}) => {
   }
 
   let signUp = async (userInfo) => {
-    let response = await fetch("/user/create/", {
+    let response = await fetch("/users/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
