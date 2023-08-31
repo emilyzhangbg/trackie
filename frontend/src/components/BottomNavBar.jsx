@@ -10,16 +10,16 @@ const BottomNavBar = () => {
 
   return (
     <BottomNavigation
-        showLabels
-        value={value}
-        onChange={(event, newValue) => {
-          setValue(newValue);
-        }}
-      >
-        <BottomNavigationAction label="Home" icon={<HomeIcon />} />
-        <BottomNavigationAction label="Posts" icon={<AddCircleOutlineIcon />} />
-        <BottomNavigationAction label="Profile" icon={<AccountCircleIcon />} />
-      </BottomNavigation>
+      showLabels
+      value={value}
+      onChange={(event, newValue) => {
+        setValue(newValue);
+      }}
+    >
+      <BottomNavigationAction label="Home" icon={<HomeIcon />} />
+      <BottomNavigationAction label="Posts" icon={<AddCircleOutlineIcon />} />
+      <BottomNavigationAction label="Profile" icon={<AccountCircleIcon />} />
+    </BottomNavigation>
   )
 }
 
