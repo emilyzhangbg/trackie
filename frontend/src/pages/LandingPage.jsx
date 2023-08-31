@@ -15,7 +15,7 @@ const LandingPage = () => {
       <Grid item xs={12} spacing={2} direction="row">
         <Stack spacing={2} direction="row">
           <Link to="/login/"><Button variant="contained">Log in</Button></Link>
-          <Button variant="outlined">Sign up</Button>
+          <Link to="/signup/"><Button variant="outlined">Sign up</Button></Link>
         </Stack>
       </Grid>
     </Grid>

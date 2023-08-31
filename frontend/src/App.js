@@ -5,6 +5,7 @@ import LandingPage from './pages/LandingPage';
 import LogInPage from './pages/LogInPage';
 import HomePage from './pages/HomePage';
 import Header from './components/Header'
+import SignUpPage from './pages/SignUpPage';
 import {AuthProvider} from './context/AuthContext'
 
 function App() {
@@ -19,6 +20,9 @@ function App() {
           </Route>
           <Route path="/login/" element={<PrivateRoutes otherDest={"/home/"}/>}>
             <Route path="" element={<LogInPage />}></Route>
+          </Route>
+          <Route path="/signup/" element={<PrivateRoutes otherDest={"/home/"}/>}>
+            <Route path="" element={<SignUpPage />}></Route>
           </Route>
         </Routes>
       </AuthProvider>

@@ -5,10 +5,7 @@ import AuthContext from '../context/AuthContext';
 const PrivateRoutes = ({otherDest}) => {
   let { user } = useContext(AuthContext)
 
-  console.log(otherDest)
-  console.log(user);
-
-  if (otherDest === "/login/") {
+  if (otherDest === "/login/" || otherDest === "/signup/") {
     return (
       user? <Outlet /> : <Navigate to="/login/" />
     )
