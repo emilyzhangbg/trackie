@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view,  permission_classes
 from django.contrib.auth.models import User
 from .models import Profile
 from .serializers import ProfileSerializer
+from rest_framework.permissions import IsAuthenticated
 
 
 @api_view(['POST'])
@@ -24,4 +25,11 @@ def createUser(request):
   
   return Response(serializer.data)
   
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def returnUser(request):
+  user = request.user
+  profile = Profile.objects.filter(user=user)
+  serializer = ProfileSerializer(instance=profile)
   
+  return Response(serializer.data)
