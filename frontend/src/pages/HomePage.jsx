@@ -11,6 +11,7 @@ import CardMedia from '@mui/material/CardMedia';
 import CreatePost from '../components/CreatePost';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Chip from '@mui/material/Chip'
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 const HomePage = () => {
   document.body.style.backgroundColor = 'white';
@@ -44,7 +45,7 @@ const HomePage = () => {
   let deletePost = async (e) => {
     let id = e.currentTarget.id.split("-")[0]
     
-    let response = await fetch("/posts/" + id, {
+    let response = await fetch("/posts/" + id + "/", {
       method: "DELETE",
       headers: {
         'Content-Type': 'application/json',
@@ -58,6 +59,31 @@ const HomePage = () => {
     }
   }
 
+  let likePost = async (e) => {
+    let liked = e.currentTarget.className.includes("filled-heart")
+    console.log(e.currentTarget.className)
+
+    let id = e.currentTarget.id.split("-")[0]
+    let method = 'PUT'
+
+    if (liked) {
+      method = 'DELETE'
+    }
+
+    let response = await fetch("/posts/likes/" + id + "/", {
+      method: method,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + String(authTokens.access)
+      }})
+
+    if (response.status === 200) {
+      let data = await response.json()
+      console.log(data)
+      getPosts()
+    }
+  }
+
   console.log(posts)
 
   return (
@@ -65,7 +91,7 @@ const HomePage = () => {
       <Button sx={{m: 2}} style={{float: "right"}} variant="contained" onClick={() => {logOut()}}>Log out</Button>
       <Grid container sx={{mb: 10}} direction="column" rowSpacing={3} justifyContent="center" alignItems="center" >
         <Grid item xs={12}>
-          <Typography variant="h5">Hi {user}!</Typography>
+          <Typography variant="h5">Hi {user.username}!</Typography>
         </Grid>
 
         <Grid item xs={12}>
@@ -87,14 +113,14 @@ const HomePage = () => {
                 <Typography variant="body1">{post.caption}</Typography>
               </Grid>
               <Grid item xs={2} style={{textAlign: 'right', display: 'flex', alignItems: 'center'}} >
-                <IconButton id={String(post.id) + "-like"}><FavoriteBorderIcon/></IconButton>
+                <IconButton id={String(post.id) + "-like"} className={(post.liked_users.includes(user.user_id))? "filled-heart" : ""} onClick={likePost}>{(post.liked_users.includes(user.user_id))? <FavoriteIcon sx={{color: 'red'}} /> :<FavoriteBorderIcon/>}</IconButton>
                 <Typography>{post.likes}</Typography>
               </Grid>
               <Grid item xs={12}>
                 <Typography variant="caption">{post.created_at.split('T')[0]}</Typography>
               </Grid>
               <Grid item xs={11}>
-                {post.hashtags.split("/").map((hashtag) => (hashtag!=="null")? <Chip label={hashtag} sx={{my:1, mr:1}}/> : <></>)}
+                {post.hashtags.split("/").map((hashtag) => (hashtag!=="null")? <Chip key={hashtag} label={hashtag} sx={{my:1, mr:1}}/> : <></>)}
               </Grid>
               <Grid item xs={1} style={{alignContent: 'right'}}>
                <IconButton id={String(post.id) + "-delete"} onClick={deletePost}><DeleteIcon/></IconButton>

@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.contrib.auth.models import User
 from .models import Profile
-from .serializers import ProfileSerializer
+from .serializers import ProfileSerializer, UserSerializer
 
 
 @api_view(['POST'])
@@ -24,4 +24,8 @@ def createUser(request):
   
   return Response(serializer.data)
   
-  
+@api_view(['GET'])
+def userId(request):
+  user = request.user
+  serializer = UserSerializer(instance=user)
+  return Response(serializer.data)
