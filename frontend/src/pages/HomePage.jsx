@@ -113,6 +113,8 @@ const HomePage = () => {
                 <Typography variant="body1">{post.caption}</Typography>
               </Grid>
               <Grid item xs={2} style={{textAlign: 'right', display: 'flex', alignItems: 'center'}} >
+                {console.log(post.liked_users)}{console.log(user.user_id)}
+
                 <IconButton id={String(post.id) + "-like"} className={(post.liked_users.includes(user.user_id))? "filled-heart" : ""} onClick={likePost}>{(post.liked_users.includes(user.user_id))? <FavoriteIcon sx={{color: 'red'}} /> :<FavoriteBorderIcon/>}</IconButton>
                 <Typography>{post.likes}</Typography>
               </Grid>
