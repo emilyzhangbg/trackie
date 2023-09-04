@@ -4,7 +4,9 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.models import User
 from .models import Post
+from users.models import Profile
 from .serializers import PostSerializer
+from users.serializers import ProfileSerializer
 from datetime import datetime
 
 def compare_date(post):
@@ -46,3 +48,27 @@ def post(request, id):
   post = Post.objects.get(id=id)
   post.delete()
   return Response('Note was deleted!')  
+
+@api_view(['PUT', 'DELETE'])
+def like(request, id):
+  post = Post.objects.get(id=id)
+  user = request.user
+  profile = Profile.objects.get(user=user)
+  serializer = PostSerializer(many=False, instance=post)
+
+  if (request.method == 'PUT'):
+    # if not (user.id in serializer.data['liked_users']):
+      post.liked_users.add(user)
+      post.likes = len(post.liked_users.all())
+      post.save(update_fields=['likes'])
+      profile.liked_posts.add(post)
+  else:
+    # if user.id in serializer.data['liked_users']:
+      post.liked_users.remove(user)
+      post.likes = len(post.liked_users.all())
+      post.save(update_fields=['likes'])
+      profile.liked_posts.remove(post)
+  
+  serializer = PostSerializer(many=False, instance=post)
+  
+  return Response(serializer.data)

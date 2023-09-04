@@ -12,4 +12,4 @@ class ProfileSerializer(serializers.ModelSerializer):
 
   class Meta:
     model = Profile
-    fields = ['user', 'age']
+    fields = ['user','liked_posts','age']

@@ -3,8 +3,8 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view,  permission_classes
 from django.contrib.auth.models import User
 from .models import Profile
-from .serializers import ProfileSerializer
 from rest_framework.permissions import IsAuthenticated
+from .serializers import ProfileSerializer, UserSerializer
 
 
 @api_view(['POST'])
@@ -31,5 +31,3 @@ def returnUser(request):
   user = request.user
   profile = Profile.objects.filter(user=user)
   serializer = ProfileSerializer(instance=profile)
-  
-  return Response(serializer.data)
