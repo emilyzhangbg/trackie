@@ -20,6 +20,8 @@ const SignUpPage = () => {
   let [lastname, setLastname] = useState(null)
   let [email, setEmail] = useState(null)
   let [bio, setBio] = useState(null)
+  let [age, setAge] = useState(null)
+
 
   let userInfo = {
     username:username,
@@ -27,7 +29,8 @@ const SignUpPage = () => {
     first_name:firstname,
     last_name:lastname,
     email:email,
-    bio:bio
+    bio:bio,
+    age:age
   }
   
   return (
@@ -114,6 +117,18 @@ const SignUpPage = () => {
                 variant="standard"
                 onChange={(e) => {
                   setBio(e.target.value)
+                }}/>
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                sx={{ width: '100%', mb: 2 }}
+                id="standard-age-input"
+                label="Age"
+                type="age"
+                autoComplete="current-age"
+                variant="standard"
+                onChange={(e) => {
+                  setAge(e.target.value)
                 }}/>
             </Grid>
           </Grid>

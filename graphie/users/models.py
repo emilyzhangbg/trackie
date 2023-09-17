@@ -5,7 +5,7 @@ from posts.models import Post
 # Create your models here.
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    bio = models.TextField()
+    bio = models.TextField(null = True, blank = True)
     age = models.IntegerField(null = True, blank = True)
     liked_posts = models.ManyToManyField(Post, related_name="liked", default=[])
 

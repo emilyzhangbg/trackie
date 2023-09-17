@@ -18,7 +18,8 @@ def createUser(request):
   
   profile = Profile.objects.create(
     user=user,
-    bio=data['bio']
+    bio=data['bio'],
+    age=data['age']
   )
 
   serializer = ProfileSerializer(instance=profile)
@@ -31,3 +32,21 @@ def returnUser(request):
   user = request.user
   profile = Profile.objects.filter(user=user)
   serializer = ProfileSerializer(instance=profile)
+
+  return Response(serializer.data)
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def updateProfile(request):
+  data = request.data
+  user = request.user
+  profile = Profile.objects.filter(user=user)
+
+  profile.age = data['age']
+  profile.bio = data['bio']
+
+
+  serializer = ProfileSerializer(instance=profile)
+
+  return Response(serializer.data)
+  
